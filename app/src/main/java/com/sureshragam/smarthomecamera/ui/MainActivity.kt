@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.sureshragam.smarthomecamera.camera.CameraScreen
 
 class MainActivity : androidx.activity.ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,10 +20,7 @@ class MainActivity : androidx.activity.ComponentActivity() {
         setContent {
             _root_ide_package_.com.sureshragam.smarthomecamera.ui.theme.SmartHomeCameraTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    CameraScreen()
                 }
             }
         }
