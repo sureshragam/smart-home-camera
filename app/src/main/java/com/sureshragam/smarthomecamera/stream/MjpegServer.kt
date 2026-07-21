@@ -1,13 +1,20 @@
 package com.sureshragam.smarthomecamera.stream
 
 import android.util.Log
+import com.sureshragam.smarthomecamera.camera.api.CameraCommandController
 import fi.iki.elonen.NanoHTTPD
 import java.io.ByteArrayInputStream
 
 class MjpegServer(port: Int) : NanoHTTPD(port) {
 
     override fun serve(session: IHTTPSession): Response {
-        Log.d("MJPEG", "Request -> ${session.uri}")
+
+        Log.d("HTTP", "${session.method} ${session.uri}")
+
+        // Camera API
+        if (session.uri.startsWith("/camera")) {
+            return CameraCommandController.handle(session)
+        }
 
         return when (session.uri) {
 
@@ -43,7 +50,7 @@ class MjpegServer(port: Int) : NanoHTTPD(port) {
                     response.addHeader("Cache-Control", "no-cache")
                     response.addHeader("Pragma", "no-cache")
 
-                    return response
+                    response
                 }
             }
 
